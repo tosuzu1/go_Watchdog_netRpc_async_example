@@ -10,9 +10,7 @@ Run the server first
 then run the client
 ` $ go run ./client/. `
 
-<video width="640" height="480" controls>
-  <source src="./useage_example.mp4" type="video/mp4">
-</video>
+https://github.com/user-attachments/assets/8fc631aa-d488-44d8-82b0-f1d28fc93dd7
 
 ## edit config
 the config data is a yaml file located in the data directory. It is set to local address "127.0.0.1" with port 1234 and 1235 for the client and server respectively. You can change the server or client config in the yaml file.
