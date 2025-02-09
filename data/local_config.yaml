@@ -1,0 +1,6 @@
+client:
+  ipv4_address: 127.0.0.1
+  port: 1234
+server:
+  ipv4_address: 127.0.0.1
+  port: 1235
