@@ -64,13 +64,13 @@ func main() {
 			continue
 		}
 		// RPC called async
-		j := 0
-		theCall := serverRpc.Go("ServerAPI.ClientHeartBeat", 0, &j, ClientHeartBeatChan)
+		var resp time.Duration
+		theCall := serverRpc.Go("ServerAPI.ClientHeartBeat", 0, &resp, ClientHeartBeatChan)
 
 		select {
 		case chanData := <-ClientHeartBeatChan:
 			if !isError_Log(chanData.Error) {
-				log.Printf("Heartbeat sent to server\n")
+				log.Printf("Heartbeat sent to server : WD elaspe = %v\n", chanData.Reply)
 				log.Printf("DEBUG chandData = %v\n", chanData)
 			}
 		case <-time.After(30 * time.Millisecond):

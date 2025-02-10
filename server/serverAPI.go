@@ -48,8 +48,9 @@ func (s *ServerAPI) getElapsedTime() time.Duration {
 	return watchDogElaspedTime
 }
 
-func (s *ServerAPI) ClientHeartBeat(_ int, resp *int) error {
+func (s *ServerAPI) ClientHeartBeat(_ int, resp *time.Duration) error {
 	watchDogTimeLock.Lock()
+	*resp = watchDogElaspedTime
 	watchDogElaspedTime = watchDogTimeout
 	watchDogTimeLock.Unlock()
 
