@@ -1,6 +1,9 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
+	"net/http"
 	"sync"
 	"time"
 )
@@ -18,6 +21,10 @@ func (s *ServerAPI) Init(requestTime_in_millisecond int) {
 	watchDogTimeout = time.Duration(requestTime_in_millisecond) * time.Millisecond
 	watchDogElaspedTime = watchDogTimeout
 	isWatchDogTiemout = false
+}
+
+type Response struct {
+	Message string `json:"message"`
 }
 
 func (s *ServerAPI) StartWatchDog() {
@@ -55,4 +62,14 @@ func (s *ServerAPI) ClientHeartBeat(_ int, resp *time.Duration) error {
 	watchDogTimeLock.Unlock()
 
 	return nil
+}
+
+func (s *ServerAPI) HandleJSONHeartBeat(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	watchDogTimeLock.Lock()
+	resp := watchDogElaspedTime
+	watchDogElaspedTime = watchDogTimeout
+	watchDogTimeLock.Unlock()
+	response := Response{Message: fmt.Sprintf("%v", resp)}
+	json.NewEncoder(w).Encode(response)
 }

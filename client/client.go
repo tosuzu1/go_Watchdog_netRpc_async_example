@@ -37,7 +37,7 @@ func main() {
 	var configFilename string
 	switch len(os.Args) {
 	case 1:
-		configFilename = "./data/local_config.yaml" // default confg file name
+		configFilename = "../data/local_config.yaml" // default confg file name
 	case 2:
 		configFilename = os.Args[1]
 	default:
